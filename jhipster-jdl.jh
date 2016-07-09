@@ -1,0 +1,84 @@
+
+
+
+entity Club {
+	clubId Long,
+	name String required,
+    description String
+}
+
+entity Site {
+	siteId Long,
+	name String required,
+	adress String,
+	mapLink String,
+    isGymnasium Boolean,
+    residentClubName String
+}
+
+entity Team {
+	teamId Long,
+	name String required
+}
+
+entity ClubEvent {
+	eventId Long,
+	name String,
+	schedule String,
+    eventType EventType
+}
+
+
+entity User {
+	
+    userType UserType
+}
+
+
+enum EventType {
+    MATCH, TRAINING, PARTY, MEETING
+}
+
+enum UserType {
+    PLAYER, LEADER , PLAYER_LEADER
+}
+
+relationship OneToMany {
+	Club to Team
+}
+
+relationship OneToMany {
+	Club{event(name)} to ClubEvent
+}
+
+relationship OneToMany {
+	Club{members} to User
+}
+
+relationship ManyToOne {
+	ClubEvent{site} to Site
+}
+/**
+relationship ManyToMany {
+	ClubEvent{registrants(name)} to User{event(name)}
+}
+*/
+
+relationship OneToMany {
+	Team{players} to User
+}
+/*
+relationship ManyToMany {
+	Team{trainers} to User{trainedTeams}
+}
+
+relationship ManyToMany {
+	Team{coachs} to User{coachedTeams}
+}
+*/
+
+paginate Club with infinite-scroll
+paginate User with pagination
+service Club with serviceClass
+
+	

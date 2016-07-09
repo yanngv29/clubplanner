@@ -1,0 +1,12 @@
+version: '2'
+services:
+    clubplanner-postgresql:
+        container_name: clubplanner-postgresql
+        image: postgres:9.5.2
+        # volumes:
+        #     - ~/volumes/jhipster/clubplanner/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=clubplanner
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
