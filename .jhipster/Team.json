@@ -42,6 +42,6 @@
   "changelogDate": "20160709130353",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceClass",
   "entityTableName": "team"
 }

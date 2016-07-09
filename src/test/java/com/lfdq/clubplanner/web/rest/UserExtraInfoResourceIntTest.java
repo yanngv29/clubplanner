@@ -3,6 +3,7 @@ package com.lfdq.clubplanner.web.rest;
 import com.lfdq.clubplanner.ClubplannerApp;
 import com.lfdq.clubplanner.domain.UserExtraInfo;
 import com.lfdq.clubplanner.repository.UserExtraInfoRepository;
+import com.lfdq.clubplanner.service.UserExtraInfoService;
 import com.lfdq.clubplanner.repository.search.UserExtraInfoSearchRepository;
 
 import org.junit.Before;
@@ -53,6 +54,9 @@ public class UserExtraInfoResourceIntTest {
     private UserExtraInfoRepository userExtraInfoRepository;
 
     @Inject
+    private UserExtraInfoService userExtraInfoService;
+
+    @Inject
     private UserExtraInfoSearchRepository userExtraInfoSearchRepository;
 
     @Inject
@@ -69,8 +73,7 @@ public class UserExtraInfoResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         UserExtraInfoResource userExtraInfoResource = new UserExtraInfoResource();
-        ReflectionTestUtils.setField(userExtraInfoResource, "userExtraInfoSearchRepository", userExtraInfoSearchRepository);
-        ReflectionTestUtils.setField(userExtraInfoResource, "userExtraInfoRepository", userExtraInfoRepository);
+        ReflectionTestUtils.setField(userExtraInfoResource, "userExtraInfoService", userExtraInfoService);
         this.restUserExtraInfoMockMvc = MockMvcBuilders.standaloneSetup(userExtraInfoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -150,8 +153,8 @@ public class UserExtraInfoResourceIntTest {
     @Transactional
     public void updateUserExtraInfo() throws Exception {
         // Initialize the database
-        userExtraInfoRepository.saveAndFlush(userExtraInfo);
-        userExtraInfoSearchRepository.save(userExtraInfo);
+        userExtraInfoService.save(userExtraInfo);
+
         int databaseSizeBeforeUpdate = userExtraInfoRepository.findAll().size();
 
         // Update the userExtraInfo
@@ -181,8 +184,8 @@ public class UserExtraInfoResourceIntTest {
     @Transactional
     public void deleteUserExtraInfo() throws Exception {
         // Initialize the database
-        userExtraInfoRepository.saveAndFlush(userExtraInfo);
-        userExtraInfoSearchRepository.save(userExtraInfo);
+        userExtraInfoService.save(userExtraInfo);
+
         int databaseSizeBeforeDelete = userExtraInfoRepository.findAll().size();
 
         // Get the userExtraInfo
@@ -203,8 +206,7 @@ public class UserExtraInfoResourceIntTest {
     @Transactional
     public void searchUserExtraInfo() throws Exception {
         // Initialize the database
-        userExtraInfoRepository.saveAndFlush(userExtraInfo);
-        userExtraInfoSearchRepository.save(userExtraInfo);
+        userExtraInfoService.save(userExtraInfo);
 
         // Search the userExtraInfo
         restUserExtraInfoMockMvc.perform(get("/api/_search/user-extra-infos?query=id:" + userExtraInfo.getId()))

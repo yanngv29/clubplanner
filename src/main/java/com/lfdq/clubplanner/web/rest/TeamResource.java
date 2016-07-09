@@ -2,8 +2,7 @@ package com.lfdq.clubplanner.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lfdq.clubplanner.domain.Team;
-import com.lfdq.clubplanner.repository.TeamRepository;
-import com.lfdq.clubplanner.repository.search.TeamSearchRepository;
+import com.lfdq.clubplanner.service.TeamService;
 import com.lfdq.clubplanner.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +33,7 @@ public class TeamResource {
     private final Logger log = LoggerFactory.getLogger(TeamResource.class);
         
     @Inject
-    private TeamRepository teamRepository;
-    
-    @Inject
-    private TeamSearchRepository teamSearchRepository;
+    private TeamService teamService;
     
     /**
      * POST  /teams : Create a new team.
@@ -55,8 +51,7 @@ public class TeamResource {
         if (team.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("team", "idexists", "A new team cannot already have an ID")).body(null);
         }
-        Team result = teamRepository.save(team);
-        teamSearchRepository.save(result);
+        Team result = teamService.save(team);
         return ResponseEntity.created(new URI("/api/teams/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("team", result.getId().toString()))
             .body(result);
@@ -80,8 +75,7 @@ public class TeamResource {
         if (team.getId() == null) {
             return createTeam(team);
         }
-        Team result = teamRepository.save(team);
-        teamSearchRepository.save(result);
+        Team result = teamService.save(team);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("team", team.getId().toString()))
             .body(result);
@@ -98,8 +92,7 @@ public class TeamResource {
     @Timed
     public List<Team> getAllTeams() {
         log.debug("REST request to get all Teams");
-        List<Team> teams = teamRepository.findAll();
-        return teams;
+        return teamService.findAll();
     }
 
     /**
@@ -114,7 +107,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<Team> getTeam(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
-        Team team = teamRepository.findOne(id);
+        Team team = teamService.findOne(id);
         return Optional.ofNullable(team)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -134,8 +127,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);
-        teamRepository.delete(id);
-        teamSearchRepository.delete(id);
+        teamService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("team", id.toString())).build();
     }
 
@@ -152,9 +144,7 @@ public class TeamResource {
     @Timed
     public List<Team> searchTeams(@RequestParam String query) {
         log.debug("REST request to search Teams for query {}", query);
-        return StreamSupport
-            .stream(teamSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return teamService.search(query);
     }
 
 

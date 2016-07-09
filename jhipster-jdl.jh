@@ -131,9 +131,8 @@ relationship OneToMany {
 
 paginate Club with infinite-scroll
 service Club with serviceClass
-
-
-
 paginate Club with infinite-scroll
-
-service Club with serviceClass
+service Site with serviceClass
+service Team with serviceClass
+service UserExtraInfo with serviceClass
+service ClubEvent with serviceClass

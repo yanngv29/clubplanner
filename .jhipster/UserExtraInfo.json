@@ -62,6 +62,6 @@
   "changelogDate": "20160709130350",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceClass",
   "entityTableName": "user_extra_info"
 }

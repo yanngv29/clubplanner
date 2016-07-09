@@ -33,6 +33,6 @@
   "changelogDate": "20160709130351",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceClass",
   "entityTableName": "site"
 }

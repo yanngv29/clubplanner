@@ -2,8 +2,7 @@ package com.lfdq.clubplanner.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lfdq.clubplanner.domain.ClubEvent;
-import com.lfdq.clubplanner.repository.ClubEventRepository;
-import com.lfdq.clubplanner.repository.search.ClubEventSearchRepository;
+import com.lfdq.clubplanner.service.ClubEventService;
 import com.lfdq.clubplanner.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +32,7 @@ public class ClubEventResource {
     private final Logger log = LoggerFactory.getLogger(ClubEventResource.class);
         
     @Inject
-    private ClubEventRepository clubEventRepository;
-    
-    @Inject
-    private ClubEventSearchRepository clubEventSearchRepository;
+    private ClubEventService clubEventService;
     
     /**
      * POST  /club-events : Create a new clubEvent.
@@ -54,8 +50,7 @@ public class ClubEventResource {
         if (clubEvent.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("clubEvent", "idexists", "A new clubEvent cannot already have an ID")).body(null);
         }
-        ClubEvent result = clubEventRepository.save(clubEvent);
-        clubEventSearchRepository.save(result);
+        ClubEvent result = clubEventService.save(clubEvent);
         return ResponseEntity.created(new URI("/api/club-events/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("clubEvent", result.getId().toString()))
             .body(result);
@@ -79,8 +74,7 @@ public class ClubEventResource {
         if (clubEvent.getId() == null) {
             return createClubEvent(clubEvent);
         }
-        ClubEvent result = clubEventRepository.save(clubEvent);
-        clubEventSearchRepository.save(result);
+        ClubEvent result = clubEventService.save(clubEvent);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("clubEvent", clubEvent.getId().toString()))
             .body(result);
@@ -97,8 +91,7 @@ public class ClubEventResource {
     @Timed
     public List<ClubEvent> getAllClubEvents() {
         log.debug("REST request to get all ClubEvents");
-        List<ClubEvent> clubEvents = clubEventRepository.findAllWithEagerRelationships();
-        return clubEvents;
+        return clubEventService.findAll();
     }
 
     /**
@@ -113,7 +106,7 @@ public class ClubEventResource {
     @Timed
     public ResponseEntity<ClubEvent> getClubEvent(@PathVariable Long id) {
         log.debug("REST request to get ClubEvent : {}", id);
-        ClubEvent clubEvent = clubEventRepository.findOneWithEagerRelationships(id);
+        ClubEvent clubEvent = clubEventService.findOne(id);
         return Optional.ofNullable(clubEvent)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -133,8 +126,7 @@ public class ClubEventResource {
     @Timed
     public ResponseEntity<Void> deleteClubEvent(@PathVariable Long id) {
         log.debug("REST request to delete ClubEvent : {}", id);
-        clubEventRepository.delete(id);
-        clubEventSearchRepository.delete(id);
+        clubEventService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("clubEvent", id.toString())).build();
     }
 
@@ -151,9 +143,7 @@ public class ClubEventResource {
     @Timed
     public List<ClubEvent> searchClubEvents(@RequestParam String query) {
         log.debug("REST request to search ClubEvents for query {}", query);
-        return StreamSupport
-            .stream(clubEventSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return clubEventService.search(query);
     }
 
 

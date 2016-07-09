@@ -44,6 +44,6 @@
   "changelogDate": "20160709130352",
   "dto": "no",
   "pagination": "no",
-  "service": "no",
+  "service": "serviceClass",
   "entityTableName": "club_event"
 }

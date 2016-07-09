@@ -2,8 +2,7 @@ package com.lfdq.clubplanner.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lfdq.clubplanner.domain.Site;
-import com.lfdq.clubplanner.repository.SiteRepository;
-import com.lfdq.clubplanner.repository.search.SiteSearchRepository;
+import com.lfdq.clubplanner.service.SiteService;
 import com.lfdq.clubplanner.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +33,7 @@ public class SiteResource {
     private final Logger log = LoggerFactory.getLogger(SiteResource.class);
         
     @Inject
-    private SiteRepository siteRepository;
-    
-    @Inject
-    private SiteSearchRepository siteSearchRepository;
+    private SiteService siteService;
     
     /**
      * POST  /sites : Create a new site.
@@ -55,8 +51,7 @@ public class SiteResource {
         if (site.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("site", "idexists", "A new site cannot already have an ID")).body(null);
         }
-        Site result = siteRepository.save(site);
-        siteSearchRepository.save(result);
+        Site result = siteService.save(site);
         return ResponseEntity.created(new URI("/api/sites/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("site", result.getId().toString()))
             .body(result);
@@ -80,8 +75,7 @@ public class SiteResource {
         if (site.getId() == null) {
             return createSite(site);
         }
-        Site result = siteRepository.save(site);
-        siteSearchRepository.save(result);
+        Site result = siteService.save(site);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("site", site.getId().toString()))
             .body(result);
@@ -98,8 +92,7 @@ public class SiteResource {
     @Timed
     public List<Site> getAllSites() {
         log.debug("REST request to get all Sites");
-        List<Site> sites = siteRepository.findAll();
-        return sites;
+        return siteService.findAll();
     }
 
     /**
@@ -114,7 +107,7 @@ public class SiteResource {
     @Timed
     public ResponseEntity<Site> getSite(@PathVariable Long id) {
         log.debug("REST request to get Site : {}", id);
-        Site site = siteRepository.findOne(id);
+        Site site = siteService.findOne(id);
         return Optional.ofNullable(site)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -134,8 +127,7 @@ public class SiteResource {
     @Timed
     public ResponseEntity<Void> deleteSite(@PathVariable Long id) {
         log.debug("REST request to delete Site : {}", id);
-        siteRepository.delete(id);
-        siteSearchRepository.delete(id);
+        siteService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("site", id.toString())).build();
     }
 
@@ -152,9 +144,7 @@ public class SiteResource {
     @Timed
     public List<Site> searchSites(@RequestParam String query) {
         log.debug("REST request to search Sites for query {}", query);
-        return StreamSupport
-            .stream(siteSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return siteService.search(query);
     }
 
 

@@ -3,6 +3,7 @@ package com.lfdq.clubplanner.web.rest;
 import com.lfdq.clubplanner.ClubplannerApp;
 import com.lfdq.clubplanner.domain.Team;
 import com.lfdq.clubplanner.repository.TeamRepository;
+import com.lfdq.clubplanner.service.TeamService;
 import com.lfdq.clubplanner.repository.search.TeamSearchRepository;
 
 import org.junit.Before;
@@ -49,6 +50,9 @@ public class TeamResourceIntTest {
     private TeamRepository teamRepository;
 
     @Inject
+    private TeamService teamService;
+
+    @Inject
     private TeamSearchRepository teamSearchRepository;
 
     @Inject
@@ -65,8 +69,7 @@ public class TeamResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         TeamResource teamResource = new TeamResource();
-        ReflectionTestUtils.setField(teamResource, "teamSearchRepository", teamSearchRepository);
-        ReflectionTestUtils.setField(teamResource, "teamRepository", teamRepository);
+        ReflectionTestUtils.setField(teamResource, "teamService", teamService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -160,8 +163,8 @@ public class TeamResourceIntTest {
     @Transactional
     public void updateTeam() throws Exception {
         // Initialize the database
-        teamRepository.saveAndFlush(team);
-        teamSearchRepository.save(team);
+        teamService.save(team);
+
         int databaseSizeBeforeUpdate = teamRepository.findAll().size();
 
         // Update the team
@@ -189,8 +192,8 @@ public class TeamResourceIntTest {
     @Transactional
     public void deleteTeam() throws Exception {
         // Initialize the database
-        teamRepository.saveAndFlush(team);
-        teamSearchRepository.save(team);
+        teamService.save(team);
+
         int databaseSizeBeforeDelete = teamRepository.findAll().size();
 
         // Get the team
@@ -211,8 +214,7 @@ public class TeamResourceIntTest {
     @Transactional
     public void searchTeam() throws Exception {
         // Initialize the database
-        teamRepository.saveAndFlush(team);
-        teamSearchRepository.save(team);
+        teamService.save(team);
 
         // Search the team
         restTeamMockMvc.perform(get("/api/_search/teams?query=id:" + team.getId()))

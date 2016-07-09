@@ -3,6 +3,7 @@ package com.lfdq.clubplanner.web.rest;
 import com.lfdq.clubplanner.ClubplannerApp;
 import com.lfdq.clubplanner.domain.Site;
 import com.lfdq.clubplanner.repository.SiteRepository;
+import com.lfdq.clubplanner.service.SiteService;
 import com.lfdq.clubplanner.repository.search.SiteSearchRepository;
 
 import org.junit.Before;
@@ -58,6 +59,9 @@ public class SiteResourceIntTest {
     private SiteRepository siteRepository;
 
     @Inject
+    private SiteService siteService;
+
+    @Inject
     private SiteSearchRepository siteSearchRepository;
 
     @Inject
@@ -74,8 +78,7 @@ public class SiteResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         SiteResource siteResource = new SiteResource();
-        ReflectionTestUtils.setField(siteResource, "siteSearchRepository", siteSearchRepository);
-        ReflectionTestUtils.setField(siteResource, "siteRepository", siteRepository);
+        ReflectionTestUtils.setField(siteResource, "siteService", siteService);
         this.restSiteMockMvc = MockMvcBuilders.standaloneSetup(siteResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -185,8 +188,8 @@ public class SiteResourceIntTest {
     @Transactional
     public void updateSite() throws Exception {
         // Initialize the database
-        siteRepository.saveAndFlush(site);
-        siteSearchRepository.save(site);
+        siteService.save(site);
+
         int databaseSizeBeforeUpdate = siteRepository.findAll().size();
 
         // Update the site
@@ -222,8 +225,8 @@ public class SiteResourceIntTest {
     @Transactional
     public void deleteSite() throws Exception {
         // Initialize the database
-        siteRepository.saveAndFlush(site);
-        siteSearchRepository.save(site);
+        siteService.save(site);
+
         int databaseSizeBeforeDelete = siteRepository.findAll().size();
 
         // Get the site
@@ -244,8 +247,7 @@ public class SiteResourceIntTest {
     @Transactional
     public void searchSite() throws Exception {
         // Initialize the database
-        siteRepository.saveAndFlush(site);
-        siteSearchRepository.save(site);
+        siteService.save(site);
 
         // Search the site
         restSiteMockMvc.perform(get("/api/_search/sites?query=id:" + site.getId()))

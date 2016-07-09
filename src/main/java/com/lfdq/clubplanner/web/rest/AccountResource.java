@@ -4,10 +4,12 @@ import com.codahale.metrics.annotation.Timed;
 
 import com.lfdq.clubplanner.domain.PersistentToken;
 import com.lfdq.clubplanner.domain.User;
+import com.lfdq.clubplanner.domain.enumeration.UserType;
 import com.lfdq.clubplanner.repository.PersistentTokenRepository;
 import com.lfdq.clubplanner.repository.UserRepository;
 import com.lfdq.clubplanner.security.SecurityUtils;
 import com.lfdq.clubplanner.service.MailService;
+import com.lfdq.clubplanner.service.UserExtraInfoService;
 import com.lfdq.clubplanner.service.UserService;
 import com.lfdq.clubplanner.web.rest.dto.KeyAndPasswordDTO;
 import com.lfdq.clubplanner.web.rest.dto.ManagedUserDTO;
@@ -44,6 +46,9 @@ public class AccountResource {
 
     @Inject
     private UserService userService;
+    
+    @Inject
+    private UserExtraInfoService userExtraInfoService;
 
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
@@ -83,6 +88,10 @@ public class AccountResource {
                     request.getContextPath();              // "/myContextPath" or "" if deployed in root context
 
                     mailService.sendActivationEmail(user, baseUrl);
+
+                    // add user-extra-info creation.
+                    userExtraInfoService.create(user.getLogin(), UserType.PLAYER, user);
+                    
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
         );

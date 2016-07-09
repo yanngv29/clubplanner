@@ -2,8 +2,7 @@ package com.lfdq.clubplanner.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lfdq.clubplanner.domain.UserExtraInfo;
-import com.lfdq.clubplanner.repository.UserExtraInfoRepository;
-import com.lfdq.clubplanner.repository.search.UserExtraInfoSearchRepository;
+import com.lfdq.clubplanner.service.UserExtraInfoService;
 import com.lfdq.clubplanner.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +32,7 @@ public class UserExtraInfoResource {
     private final Logger log = LoggerFactory.getLogger(UserExtraInfoResource.class);
         
     @Inject
-    private UserExtraInfoRepository userExtraInfoRepository;
-    
-    @Inject
-    private UserExtraInfoSearchRepository userExtraInfoSearchRepository;
+    private UserExtraInfoService userExtraInfoService;
     
     /**
      * POST  /user-extra-infos : Create a new userExtraInfo.
@@ -54,8 +50,7 @@ public class UserExtraInfoResource {
         if (userExtraInfo.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("userExtraInfo", "idexists", "A new userExtraInfo cannot already have an ID")).body(null);
         }
-        UserExtraInfo result = userExtraInfoRepository.save(userExtraInfo);
-        userExtraInfoSearchRepository.save(result);
+        UserExtraInfo result = userExtraInfoService.save(userExtraInfo);
         return ResponseEntity.created(new URI("/api/user-extra-infos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("userExtraInfo", result.getId().toString()))
             .body(result);
@@ -79,8 +74,7 @@ public class UserExtraInfoResource {
         if (userExtraInfo.getId() == null) {
             return createUserExtraInfo(userExtraInfo);
         }
-        UserExtraInfo result = userExtraInfoRepository.save(userExtraInfo);
-        userExtraInfoSearchRepository.save(result);
+        UserExtraInfo result = userExtraInfoService.save(userExtraInfo);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("userExtraInfo", userExtraInfo.getId().toString()))
             .body(result);
@@ -97,8 +91,7 @@ public class UserExtraInfoResource {
     @Timed
     public List<UserExtraInfo> getAllUserExtraInfos() {
         log.debug("REST request to get all UserExtraInfos");
-        List<UserExtraInfo> userExtraInfos = userExtraInfoRepository.findAll();
-        return userExtraInfos;
+        return userExtraInfoService.findAll();
     }
 
     /**
@@ -113,7 +106,7 @@ public class UserExtraInfoResource {
     @Timed
     public ResponseEntity<UserExtraInfo> getUserExtraInfo(@PathVariable Long id) {
         log.debug("REST request to get UserExtraInfo : {}", id);
-        UserExtraInfo userExtraInfo = userExtraInfoRepository.findOne(id);
+        UserExtraInfo userExtraInfo = userExtraInfoService.findOne(id);
         return Optional.ofNullable(userExtraInfo)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -133,8 +126,7 @@ public class UserExtraInfoResource {
     @Timed
     public ResponseEntity<Void> deleteUserExtraInfo(@PathVariable Long id) {
         log.debug("REST request to delete UserExtraInfo : {}", id);
-        userExtraInfoRepository.delete(id);
-        userExtraInfoSearchRepository.delete(id);
+        userExtraInfoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("userExtraInfo", id.toString())).build();
     }
 
@@ -151,9 +143,7 @@ public class UserExtraInfoResource {
     @Timed
     public List<UserExtraInfo> searchUserExtraInfos(@RequestParam String query) {
         log.debug("REST request to search UserExtraInfos for query {}", query);
-        return StreamSupport
-            .stream(userExtraInfoSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+        return userExtraInfoService.search(query);
     }
 
 

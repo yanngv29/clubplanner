@@ -3,6 +3,7 @@ package com.lfdq.clubplanner.web.rest;
 import com.lfdq.clubplanner.ClubplannerApp;
 import com.lfdq.clubplanner.domain.ClubEvent;
 import com.lfdq.clubplanner.repository.ClubEventRepository;
+import com.lfdq.clubplanner.service.ClubEventService;
 import com.lfdq.clubplanner.repository.search.ClubEventSearchRepository;
 
 import org.junit.Before;
@@ -55,6 +56,9 @@ public class ClubEventResourceIntTest {
     private ClubEventRepository clubEventRepository;
 
     @Inject
+    private ClubEventService clubEventService;
+
+    @Inject
     private ClubEventSearchRepository clubEventSearchRepository;
 
     @Inject
@@ -71,8 +75,7 @@ public class ClubEventResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         ClubEventResource clubEventResource = new ClubEventResource();
-        ReflectionTestUtils.setField(clubEventResource, "clubEventSearchRepository", clubEventSearchRepository);
-        ReflectionTestUtils.setField(clubEventResource, "clubEventRepository", clubEventRepository);
+        ReflectionTestUtils.setField(clubEventResource, "clubEventService", clubEventService);
         this.restClubEventMockMvc = MockMvcBuilders.standaloneSetup(clubEventResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -156,8 +159,8 @@ public class ClubEventResourceIntTest {
     @Transactional
     public void updateClubEvent() throws Exception {
         // Initialize the database
-        clubEventRepository.saveAndFlush(clubEvent);
-        clubEventSearchRepository.save(clubEvent);
+        clubEventService.save(clubEvent);
+
         int databaseSizeBeforeUpdate = clubEventRepository.findAll().size();
 
         // Update the clubEvent
@@ -189,8 +192,8 @@ public class ClubEventResourceIntTest {
     @Transactional
     public void deleteClubEvent() throws Exception {
         // Initialize the database
-        clubEventRepository.saveAndFlush(clubEvent);
-        clubEventSearchRepository.save(clubEvent);
+        clubEventService.save(clubEvent);
+
         int databaseSizeBeforeDelete = clubEventRepository.findAll().size();
 
         // Get the clubEvent
@@ -211,8 +214,7 @@ public class ClubEventResourceIntTest {
     @Transactional
     public void searchClubEvent() throws Exception {
         // Initialize the database
-        clubEventRepository.saveAndFlush(clubEvent);
-        clubEventSearchRepository.save(clubEvent);
+        clubEventService.save(clubEvent);
 
         // Search the clubEvent
         restClubEventMockMvc.perform(get("/api/_search/club-events?query=id:" + clubEvent.getId()))
