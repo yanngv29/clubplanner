@@ -20,6 +20,7 @@
             "userType": "User Type",
             "user": "User",
             "event": "Event",
+            "club": "Club",
             "team": "Team",
             "trainedTeam": "Trained Team",
             "coachedTeam": "Coached Team"

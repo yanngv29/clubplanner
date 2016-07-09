@@ -113,6 +113,10 @@ relationship ManyToMany {
 }
 
 relationship OneToMany {
+	Club{members(nickname)} to UserExtraInfo{club(name)}
+}
+
+relationship OneToMany {
 	Team{players(nickname)} to UserExtraInfo{team(name)}
 }
 
@@ -126,7 +130,6 @@ relationship OneToMany {
 
 
 paginate Club with infinite-scroll
-
 service Club with serviceClass
 
 

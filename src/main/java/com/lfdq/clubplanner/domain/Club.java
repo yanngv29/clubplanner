@@ -44,6 +44,11 @@ public class Club implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ClubEvent> events = new HashSet<>();
 
+    @OneToMany(mappedBy = "club")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UserExtraInfo> members = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -82,6 +87,14 @@ public class Club implements Serializable {
 
     public void setEvents(Set<ClubEvent> clubEvents) {
         this.events = clubEvents;
+    }
+
+    public Set<UserExtraInfo> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<UserExtraInfo> userExtraInfos) {
+        this.members = userExtraInfos;
     }
 
     @Override

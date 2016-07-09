@@ -20,19 +20,26 @@
     {
       "relationshipId": 3,
       "relationshipType": "many-to-one",
+      "relationshipName": "club",
+      "otherEntityName": "club",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipType": "many-to-one",
       "relationshipName": "team",
       "otherEntityName": "team",
       "otherEntityField": "name"
     },
     {
-      "relationshipId": 4,
+      "relationshipId": 5,
       "relationshipType": "many-to-one",
       "relationshipName": "trainedTeam",
       "otherEntityName": "team",
       "otherEntityField": "name"
     },
     {
-      "relationshipId": 5,
+      "relationshipId": 6,
       "relationshipType": "many-to-one",
       "relationshipName": "coachedTeam",
       "otherEntityName": "team",

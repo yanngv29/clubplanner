@@ -13,6 +13,13 @@
       "relationshipName": "event",
       "otherEntityName": "clubEvent",
       "otherEntityRelationshipName": "club"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "one-to-many",
+      "relationshipName": "members",
+      "otherEntityName": "userExtraInfo",
+      "otherEntityRelationshipName": "club"
     }
   ],
   "fields": [

@@ -19,7 +19,8 @@
             "name": "Name",
             "description": "Description",
             "teams": "Teams",
-            "event": "Event"
+            "event": "Event",
+            "members": "Members"
         }
     }
 }

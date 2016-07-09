@@ -16,6 +16,10 @@
         <dd>
             {{vm.userExtraInfo.user.login}}
         </dd>
+        <dt><span translate="clubplannerApp.userExtraInfo.club">Club</span></dt>
+        <dd>
+            <a ui-sref="club-detail({id:vm.userExtraInfo.club.id})">{{vm.userExtraInfo.club.name}}</a>
+        </dd>
         <dt><span translate="clubplannerApp.userExtraInfo.team">Team</span></dt>
         <dd>
             <a ui-sref="team-detail({id:vm.userExtraInfo.team.id})">{{vm.userExtraInfo.team.name}}</a>

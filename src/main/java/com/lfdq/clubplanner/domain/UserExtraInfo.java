@@ -45,6 +45,9 @@ public class UserExtraInfo implements Serializable {
     private Set<ClubEvent> events = new HashSet<>();
 
     @ManyToOne
+    private Club club;
+
+    @ManyToOne
     private Team team;
 
     @ManyToOne
@@ -91,6 +94,14 @@ public class UserExtraInfo implements Serializable {
 
     public void setEvents(Set<ClubEvent> clubEvents) {
         this.events = clubEvents;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     public Team getTeam() {

@@ -39,6 +39,7 @@
                     <th><span translate="clubplannerApp.userExtraInfo.nickname">Nickname</span></th>
                     <th><span translate="clubplannerApp.userExtraInfo.userType">User Type</span></th>
                     <th><span translate="clubplannerApp.userExtraInfo.user">User</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.club">Club</span></th>
                     <th><span translate="clubplannerApp.userExtraInfo.team">Team</span></th>
                     <th><span translate="clubplannerApp.userExtraInfo.trainedTeam">Trained Team</span></th>
                     <th><span translate="clubplannerApp.userExtraInfo.coachedTeam">Coached Team</span></th>
@@ -52,6 +53,9 @@
                     <td translate="{{'clubplannerApp.UserType.' + userExtraInfo.userType}}">{{userExtraInfo.userType}}</td>
                     <td>
                         {{userExtraInfo.user.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="club-detail({id:userExtraInfo.club.id})">{{userExtraInfo.club.name}}</a>
                     </td>
                     <td>
                         <a ui-sref="team-detail({id:userExtraInfo.team.id})">{{userExtraInfo.team.name}}</a>

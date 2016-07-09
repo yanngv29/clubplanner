@@ -5,9 +5,9 @@
         .module('clubplannerApp')
         .controller('ClubDialogController', ClubDialogController);
 
-    ClubDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Club', 'Team', 'ClubEvent'];
+    ClubDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Club', 'Team', 'ClubEvent', 'UserExtraInfo'];
 
-    function ClubDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Club, Team, ClubEvent) {
+    function ClubDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Club, Team, ClubEvent, UserExtraInfo) {
         var vm = this;
 
         vm.club = entity;
@@ -15,6 +15,7 @@
         vm.save = save;
         vm.teams = Team.query();
         vm.clubevents = ClubEvent.query();
+        vm.userextrainfos = UserExtraInfo.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
