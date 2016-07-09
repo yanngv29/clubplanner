@@ -1,0 +1,41 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "site",
+      "otherEntityName": "site",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "club",
+      "otherEntityName": "club",
+      "otherEntityField": "name"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "schedule",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "eventType",
+      "fieldType": "EventType",
+      "fieldValues": "MATCH,TRAINING,PARTY,MEETING"
+    }
+  ],
+  "changelogDate": "20160709115650",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "club_event"
+}

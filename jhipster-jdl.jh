@@ -2,13 +2,11 @@
 
 
 entity Club {
-	clubId Long,
 	name String required,
     description String
 }
 
 entity Site {
-	siteId Long,
 	name String required,
 	adress String,
 	mapLink String,
@@ -17,21 +15,13 @@ entity Site {
 }
 
 entity Team {
-	teamId Long,
 	name String required
 }
 
 entity ClubEvent {
-	eventId Long,
 	name String,
 	schedule String,
     eventType EventType
-}
-
-
-entity User {
-	
-    userType UserType
 }
 
 
@@ -44,41 +34,17 @@ enum UserType {
 }
 
 relationship OneToMany {
-	Club to Team
+	Club{teams(name)} to Team{club(name)}
 }
 
 relationship OneToMany {
-	Club{event(name)} to ClubEvent
-}
-
-relationship OneToMany {
-	Club{members} to User
+	Club{event(name)} to ClubEvent{club(name)}
 }
 
 relationship ManyToOne {
-	ClubEvent{site} to Site
+	ClubEvent{site(name)} to Site
 }
-/**
-relationship ManyToMany {
-	ClubEvent{registrants(name)} to User{event(name)}
-}
-*/
-
-relationship OneToMany {
-	Team{players} to User
-}
-/*
-relationship ManyToMany {
-	Team{trainers} to User{trainedTeams}
-}
-
-relationship ManyToMany {
-	Team{coachs} to User{coachedTeams}
-}
-*/
 
 paginate Club with infinite-scroll
-paginate User with pagination
-service Club with serviceClass
 
-	
+service Club with serviceClass

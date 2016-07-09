@@ -1,0 +1,38 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "adress",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "mapLink",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "isGymnasium",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "residentClubName",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160709115648",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "site"
+}

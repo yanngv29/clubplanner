@@ -1,0 +1,11 @@
+{
+    "clubplannerApp": {
+        "EventType" : {
+            "null": "",
+            "MATCH": "MATCH",
+            "TRAINING": "TRAINING",
+            "PARTY": "PARTY",
+            "MEETING": "MEETING"
+        }
+    }
+}

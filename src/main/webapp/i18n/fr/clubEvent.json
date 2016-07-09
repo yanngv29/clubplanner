@@ -1,0 +1,26 @@
+{
+    "clubplannerApp": {
+        "clubEvent" : {
+            "home": {
+                "title": "ClubEvents",
+                "createLabel": "Créer un nouveau Club Event",
+                "createOrEditLabel": "Créer ou éditer un Club Event",
+                "search": "Recherche pour Club Event"
+            },
+            "created": "Un nouveau Club Event a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Club Event avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Club Event avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Club Event {{ id }} ?"
+            },
+            "detail": {
+                "title": "Club Event"
+            },
+            "name": "Name",
+            "schedule": "Schedule",
+            "eventType": "Event Type",
+            "site": "Site",
+            "club": "Club"
+        }
+    }
+}

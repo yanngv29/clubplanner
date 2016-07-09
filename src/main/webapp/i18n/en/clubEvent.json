@@ -1,0 +1,26 @@
+{
+    "clubplannerApp": {
+        "clubEvent" : {
+            "home": {
+                "title": "Club Events",
+                "createLabel": "Create a new Club Event",
+                "createOrEditLabel": "Create or edit a Club Event",
+                "search": "Search for Club Event"
+            },
+            "created": "A new Club Event is created with identifier {{ param }}",
+            "updated": "A Club Event is updated with identifier {{ param }}",
+            "deleted": "A Club Event is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Club Event {{ id }}?"
+            },
+            "detail": {
+                "title": "Club Event"
+            },
+            "name": "Name",
+            "schedule": "Schedule",
+            "eventType": "Event Type",
+            "site": "Site",
+            "club": "Club"
+        }
+    }
+}
