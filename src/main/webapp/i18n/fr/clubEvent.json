@@ -20,6 +20,7 @@
             "schedule": "Schedule",
             "eventType": "Event Type",
             "site": "Site",
+            "registrants": "Registrants",
             "club": "Club"
         }
     }

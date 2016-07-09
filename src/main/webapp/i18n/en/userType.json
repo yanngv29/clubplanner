@@ -1,0 +1,10 @@
+{
+    "clubplannerApp": {
+        "UserType" : {
+            "null": "",
+            "PLAYER": "PLAYER",
+            "LEADER": "LEADER",
+            "PLAYER_LEADER": "PLAYER_LEADER"
+        }
+    }
+}

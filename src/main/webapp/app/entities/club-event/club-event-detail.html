@@ -20,6 +20,12 @@
         <dd>
             <a ui-sref="site-detail({id:vm.clubEvent.site.id})">{{vm.clubEvent.site.name}}</a>
         </dd>
+        <dt><span translate="clubplannerApp.clubEvent.registrants">Registrants</span></dt>
+        <dd>
+            <span ng-repeat="registrants in vm.clubEvent.registrants">
+                <a ui-sref="user-extra-info-detail({id: {{registrants.id}}})">{{registrants.nickname}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
         <dt><span translate="clubplannerApp.clubEvent.club">Club</span></dt>
         <dd>
             <a ui-sref="club-detail({id:vm.clubEvent.club.id})">{{vm.clubEvent.club.name}}</a>

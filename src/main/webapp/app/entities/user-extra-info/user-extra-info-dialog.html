@@ -1,0 +1,64 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myUserExtraInfoLabel" translate="clubplannerApp.userExtraInfo.home.createOrEditLabel">Create or edit a User Extra Info</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.userExtraInfo.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.userExtraInfo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="clubplannerApp.userExtraInfo.nickname" for="field_nickname">Nickname</label>
+            <input type="text" class="form-control" name="nickname" id="field_nickname"
+                    ng-model="vm.userExtraInfo.nickname"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="clubplannerApp.userExtraInfo.userType" for="field_userType">User Type</label>
+            <select class="form-control" name="userType" ng-model="vm.userExtraInfo.userType" id="field_userType">
+                <option value="PLAYER" translate="clubplannerApp.UserType.PLAYER">PLAYER</option>
+                <option value="LEADER" translate="clubplannerApp.UserType.LEADER">LEADER</option>
+                <option value="PLAYER_LEADER" translate="clubplannerApp.UserType.PLAYER_LEADER">PLAYER_LEADER</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="clubplannerApp.userExtraInfo.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.userExtraInfo.user" ng-options="user as user.login for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="clubplannerApp.userExtraInfo.team" for="field_team">Team</label>
+            <select class="form-control" id="field_team" name="team" ng-model="vm.userExtraInfo.team" ng-options="team as team.name for team in vm.teams track by team.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="clubplannerApp.userExtraInfo.trainedTeam" for="field_trainedTeam">Trained Team</label>
+            <select class="form-control" id="field_trainedTeam" name="trainedTeam" ng-model="vm.userExtraInfo.trainedTeam" ng-options="team as team.name for team in vm.teams track by team.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="clubplannerApp.userExtraInfo.coachedTeam" for="field_coachedTeam">Coached Team</label>
+            <select class="form-control" id="field_coachedTeam" name="coachedTeam" ng-model="vm.userExtraInfo.coachedTeam" ng-options="team as team.name for team in vm.teams track by team.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

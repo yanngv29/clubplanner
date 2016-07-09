@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Team.
     -->
-    <changeSet id="20160709115649-2" author="jhipster">
+    <changeSet id="20160709130353-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="club_id"
                                  baseTableName="team"

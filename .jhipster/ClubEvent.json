@@ -9,6 +9,14 @@
     },
     {
       "relationshipId": 2,
+      "relationshipType": "many-to-many",
+      "relationshipName": "registrants",
+      "otherEntityName": "userExtraInfo",
+      "otherEntityField": "nickname",
+      "ownerSide": true
+    },
+    {
+      "relationshipId": 3,
       "relationshipType": "many-to-one",
       "relationshipName": "club",
       "otherEntityName": "club",
@@ -33,7 +41,7 @@
       "fieldValues": "MATCH,TRAINING,PARTY,MEETING"
     }
   ],
-  "changelogDate": "20160709115650",
+  "changelogDate": "20160709130352",
   "dto": "no",
   "pagination": "no",
   "service": "no",

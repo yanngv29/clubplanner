@@ -17,6 +17,9 @@
                 "title": "Team"
             },
             "name": "Name",
+            "players": "Players",
+            "trainers": "Trainers",
+            "coachs": "Coachs",
             "club": "Club"
         }
     }

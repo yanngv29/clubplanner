@@ -11,6 +11,7 @@
                 "site": "Site",
                 "team": "Team",
                 "clubEvent": "Club Event",
+                "userExtraInfo": "User Extra Info",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

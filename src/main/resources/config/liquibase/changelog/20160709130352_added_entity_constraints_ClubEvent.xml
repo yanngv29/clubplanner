@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity ClubEvent.
     -->
-    <changeSet id="20160709115650-2" author="jhipster">
+    <changeSet id="20160709130352-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="site_id"
                                  baseTableName="club_event"
@@ -14,6 +14,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="site"/>
 
+        <addForeignKeyConstraint baseColumnNames="club_events_id"
+                                 baseTableName="club_event_registrants"
+                                 constraintName="fk_club_event_registrants_userextrainfo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="club_event"/>
+        <addForeignKeyConstraint baseColumnNames="registrants_id"
+                                 baseTableName="club_event_registrants"
+                                 constraintName="fk_club_event_registrants_clubevent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra_info"/>
+        
         <addForeignKeyConstraint baseColumnNames="club_id"
                                  baseTableName="club_event"
                                  constraintName="fk_clubevent_club_id"

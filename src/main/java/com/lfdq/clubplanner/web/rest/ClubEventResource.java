@@ -97,7 +97,7 @@ public class ClubEventResource {
     @Timed
     public List<ClubEvent> getAllClubEvents() {
         log.debug("REST request to get all ClubEvents");
-        List<ClubEvent> clubEvents = clubEventRepository.findAll();
+        List<ClubEvent> clubEvents = clubEventRepository.findAllWithEagerRelationships();
         return clubEvents;
     }
 
@@ -113,7 +113,7 @@ public class ClubEventResource {
     @Timed
     public ResponseEntity<ClubEvent> getClubEvent(@PathVariable Long id) {
         log.debug("REST request to get ClubEvent : {}", id);
-        ClubEvent clubEvent = clubEventRepository.findOne(id);
+        ClubEvent clubEvent = clubEventRepository.findOneWithEagerRelationships(id);
         return Optional.ofNullable(clubEvent)
             .map(result -> new ResponseEntity<>(
                 result,

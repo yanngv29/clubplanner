@@ -5,9 +5,9 @@
         .module('clubplannerApp')
         .controller('TeamDetailController', TeamDetailController);
 
-    TeamDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Team', 'Club'];
+    TeamDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Team', 'UserExtraInfo', 'Club'];
 
-    function TeamDetailController($scope, $rootScope, $stateParams, entity, Team, Club) {
+    function TeamDetailController($scope, $rootScope, $stateParams, entity, Team, UserExtraInfo, Club) {
         var vm = this;
 
         vm.team = entity;

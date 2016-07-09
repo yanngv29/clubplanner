@@ -1,0 +1,28 @@
+{
+    "clubplannerApp": {
+        "userExtraInfo" : {
+            "home": {
+                "title": "UserExtraInfos",
+                "createLabel": "Créer un nouveau User Extra Info",
+                "createOrEditLabel": "Créer ou éditer un User Extra Info",
+                "search": "Recherche pour User Extra Info"
+            },
+            "created": "Un nouveau User Extra Info a été créé avec l'identifiant {{ param }}",
+            "updated": "Le User Extra Info avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le User Extra Info avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le User Extra Info {{ id }} ?"
+            },
+            "detail": {
+                "title": "User Extra Info"
+            },
+            "nickname": "Nickname",
+            "userType": "User Type",
+            "user": "User",
+            "event": "Event",
+            "team": "Team",
+            "trainedTeam": "Trained Team",
+            "coachedTeam": "Coached Team"
+        }
+    }
+}

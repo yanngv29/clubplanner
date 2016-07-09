@@ -5,15 +5,16 @@
         .module('clubplannerApp')
         .controller('ClubEventDialogController', ClubEventDialogController);
 
-    ClubEventDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'ClubEvent', 'Site', 'Club'];
+    ClubEventDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'ClubEvent', 'Site', 'UserExtraInfo', 'Club'];
 
-    function ClubEventDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, ClubEvent, Site, Club) {
+    function ClubEventDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, ClubEvent, Site, UserExtraInfo, Club) {
         var vm = this;
 
         vm.clubEvent = entity;
         vm.clear = clear;
         vm.save = save;
         vm.sites = Site.query();
+        vm.userextrainfos = UserExtraInfo.query();
         vm.clubs = Club.query();
 
         $timeout(function (){

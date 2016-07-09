@@ -1,9 +1,15 @@
 
+enum EventType {
+    MATCH, TRAINING, PARTY, MEETING
+}
 
+enum UserType {
+    PLAYER, LEADER , PLAYER_LEADER
+}
 
-entity Club {
-	name String required,
-    description String
+entity UserExtraInfo {
+		nickname String,
+    userType UserType
 }
 
 entity Site {
@@ -14,23 +20,23 @@ entity Site {
     residentClubName String
 }
 
-entity Team {
-	name String required
-}
-
 entity ClubEvent {
 	name String,
 	schedule String,
     eventType EventType
 }
 
-
-enum EventType {
-    MATCH, TRAINING, PARTY, MEETING
+entity Team {
+	name String required
 }
 
-enum UserType {
-    PLAYER, LEADER , PLAYER_LEADER
+entity Club {
+	name String required,
+    description String
+}
+
+relationship OneToOne {
+	UserExtraInfo{user(login)} to User
 }
 
 relationship OneToMany {
@@ -44,6 +50,86 @@ relationship OneToMany {
 relationship ManyToOne {
 	ClubEvent{site(name)} to Site
 }
+
+relationship ManyToMany {
+	ClubEvent{registrants(nickname)} to UserExtraInfo{event(name)}
+}
+
+
+enum EventType {
+    MATCH, TRAINING, PARTY, MEETING
+}
+
+enum UserType {
+    PLAYER, LEADER , PLAYER_LEADER
+}
+
+entity UserExtraInfo {
+		nickname String,
+    userType UserType
+}
+
+entity Site {
+	name String required,
+	adress String,
+	mapLink String,
+    isGymnasium Boolean,
+    residentClubName String
+}
+
+entity ClubEvent {
+	name String,
+	schedule String,
+    eventType EventType
+}
+
+entity Team {
+	name String required
+}
+
+entity Club {
+	name String required,
+    description String
+}
+
+relationship OneToOne {
+	UserExtraInfo{user(login)} to User
+}
+
+relationship OneToMany {
+	Club{teams(name)} to Team{club(name)}
+}
+
+relationship OneToMany {
+	Club{event(name)} to ClubEvent{club(name)}
+}
+
+relationship ManyToOne {
+	ClubEvent{site(name)} to Site
+}
+
+relationship ManyToMany {
+	ClubEvent{registrants(nickname)} to UserExtraInfo{event(name)}
+}
+
+relationship OneToMany {
+	Team{players(nickname)} to UserExtraInfo{team(name)}
+}
+
+relationship OneToMany {
+	Team{trainers(nickname)} to UserExtraInfo{trainedTeam(name)}
+}
+
+relationship OneToMany {
+	Team{coachs(nickname)} to UserExtraInfo{coachedTeam(name)}
+}
+
+
+paginate Club with infinite-scroll
+
+service Club with serviceClass
+
+
 
 paginate Club with infinite-scroll
 

@@ -1,20 +1,20 @@
 <div>
-    <h2 translate="clubplannerApp.clubEvent.home.title">Club Events</h2>
+    <h2 translate="clubplannerApp.userExtraInfo.home.title">User Extra Infos</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="club-event.new" >
+                <button class="btn btn-primary" ui-sref="user-extra-info.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs"  translate="clubplannerApp.clubEvent.home.createLabel">
-                        Create new Club Event
+                    <span class="hidden-xs"  translate="clubplannerApp.userExtraInfo.home.createLabel">
+                        Create new User Extra Info
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'clubplannerApp.clubEvent.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'clubplannerApp.userExtraInfo.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -36,48 +36,48 @@
             <thead>
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
-                    <th><span translate="clubplannerApp.clubEvent.name">Name</span></th>
-                    <th><span translate="clubplannerApp.clubEvent.schedule">Schedule</span></th>
-                    <th><span translate="clubplannerApp.clubEvent.eventType">Event Type</span></th>
-                    <th><span translate="clubplannerApp.clubEvent.site">Site</span></th>
-                    <th><span translate="clubplannerApp.clubEvent.registrants">Registrants</span></th>
-                    <th><span translate="clubplannerApp.clubEvent.club">Club</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.nickname">Nickname</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.userType">User Type</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.user">User</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.team">Team</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.trainedTeam">Trained Team</span></th>
+                    <th><span translate="clubplannerApp.userExtraInfo.coachedTeam">Coached Team</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="clubEvent in vm.clubEvents track by clubEvent.id">
-                    <td><a ui-sref="club-event-detail({id:clubEvent.id})">{{clubEvent.id}}</a></td>
-                    <td>{{clubEvent.name}}</td>
-                    <td>{{clubEvent.schedule}}</td>
-                    <td translate="{{'clubplannerApp.EventType.' + clubEvent.eventType}}">{{clubEvent.eventType}}</td>
+                <tr ng-repeat="userExtraInfo in vm.userExtraInfos track by userExtraInfo.id">
+                    <td><a ui-sref="user-extra-info-detail({id:userExtraInfo.id})">{{userExtraInfo.id}}</a></td>
+                    <td>{{userExtraInfo.nickname}}</td>
+                    <td translate="{{'clubplannerApp.UserType.' + userExtraInfo.userType}}">{{userExtraInfo.userType}}</td>
                     <td>
-                        <a ui-sref="site-detail({id:clubEvent.site.id})">{{clubEvent.site.name}}</a>
+                        {{userExtraInfo.user.login}}
                     </td>
                     <td>
-                        <span ng-repeat="registrants in clubEvent.registrants">
-                            <a class="form-control-static" ui-sref="user-extra-info-detail({id: {{registrants.id}}})">{{registrants.nickname}}</a>{{$last ? '' : ', '}}
-                        </span>
+                        <a ui-sref="team-detail({id:userExtraInfo.team.id})">{{userExtraInfo.team.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="club-detail({id:clubEvent.club.id})">{{clubEvent.club.name}}</a>
+                        <a ui-sref="team-detail({id:userExtraInfo.trainedTeam.id})">{{userExtraInfo.trainedTeam.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="team-detail({id:userExtraInfo.coachedTeam.id})">{{userExtraInfo.coachedTeam.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="club-event-detail({id:clubEvent.id})"
+                                    ui-sref="user-extra-info-detail({id:userExtraInfo.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="club-event.edit({id:clubEvent.id})"
+                                    ui-sref="user-extra-info.edit({id:userExtraInfo.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="club-event.delete({id:clubEvent.id})"
+                                    ui-sref="user-extra-info.delete({id:userExtraInfo.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>

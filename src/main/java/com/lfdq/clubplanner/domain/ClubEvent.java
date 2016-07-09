@@ -6,6 +6,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import com.lfdq.clubplanner.domain.enumeration.EventType;
@@ -37,6 +39,13 @@ public class ClubEvent implements Serializable {
 
     @ManyToOne
     private Site site;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "club_event_registrants",
+               joinColumns = @JoinColumn(name="club_events_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="registrants_id", referencedColumnName="ID"))
+    private Set<UserExtraInfo> registrants = new HashSet<>();
 
     @ManyToOne
     private Club club;
@@ -79,6 +88,14 @@ public class ClubEvent implements Serializable {
 
     public void setSite(Site site) {
         this.site = site;
+    }
+
+    public Set<UserExtraInfo> getRegistrants() {
+        return registrants;
+    }
+
+    public void setRegistrants(Set<UserExtraInfo> userExtraInfos) {
+        this.registrants = userExtraInfos;
     }
 
     public Club getClub() {

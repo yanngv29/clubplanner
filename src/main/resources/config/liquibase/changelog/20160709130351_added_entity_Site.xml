@@ -16,15 +16,11 @@
     <!--
         Added the entity Site.
     -->
-    <changeSet id="20160709115122-1" author="jhipster">
+    <changeSet id="20160709130351-1" author="jhipster">
         <createTable tableName="site">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="site_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>

@@ -16,15 +16,11 @@
     <!--
         Added the entity ClubEvent.
     -->
-    <changeSet id="20160709115124-1" author="jhipster">
+    <changeSet id="20160709130352-1" author="jhipster">
         <createTable tableName="club_event">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="event_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -37,16 +33,27 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="club_id" type="bigint">
+            <column name="site_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
-            <column name="site_id" type="bigint">
+            <column name="club_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="club_event_registrants">
+            <column name="registrants_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="club_events_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="club_events_id, registrants_id" tableName="club_event_registrants"/>
         
     </changeSet>
 </databaseChangeLog>

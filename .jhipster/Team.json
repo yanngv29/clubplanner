@@ -2,6 +2,27 @@
   "relationships": [
     {
       "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "players",
+      "otherEntityName": "userExtraInfo",
+      "otherEntityRelationshipName": "team"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "trainers",
+      "otherEntityName": "userExtraInfo",
+      "otherEntityRelationshipName": "trainedTeam"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "one-to-many",
+      "relationshipName": "coachs",
+      "otherEntityName": "userExtraInfo",
+      "otherEntityRelationshipName": "coachedTeam"
+    },
+    {
+      "relationshipId": 4,
       "relationshipType": "many-to-one",
       "relationshipName": "club",
       "otherEntityName": "club",
@@ -18,7 +39,7 @@
       ]
     }
   ],
-  "changelogDate": "20160709115649",
+  "changelogDate": "20160709130353",
   "dto": "no",
   "pagination": "no",
   "service": "no",

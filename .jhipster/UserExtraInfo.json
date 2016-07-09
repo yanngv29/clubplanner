@@ -1,0 +1,60 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-one",
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "userExtraInfo"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-many",
+      "relationshipName": "event",
+      "otherEntityName": "clubEvent",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "registrants"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "many-to-one",
+      "relationshipName": "team",
+      "otherEntityName": "team",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipType": "many-to-one",
+      "relationshipName": "trainedTeam",
+      "otherEntityName": "team",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipId": 5,
+      "relationshipType": "many-to-one",
+      "relationshipName": "coachedTeam",
+      "otherEntityName": "team",
+      "otherEntityField": "name"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "nickname",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "userType",
+      "fieldType": "UserType",
+      "fieldValues": "PLAYER,LEADER,PLAYER_LEADER"
+    }
+  ],
+  "changelogDate": "20160709130350",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "user_extra_info"
+}
