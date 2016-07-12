@@ -5,14 +5,15 @@
         .module('clubplannerApp')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['Principal', 'Auth', 'JhiLanguageService', '$translate'];
+    SettingsController.$inject = ['Principal', 'Auth', 'JhiLanguageService', '$translate','UserExtraInfo'];
 
-    function SettingsController (Principal, Auth, JhiLanguageService, $translate) {
+    function SettingsController (Principal, Auth, JhiLanguageService, $translate, UserExtraInfo) {
         var vm = this;
 
         vm.error = null;
         vm.save = save;
         vm.settingsAccount = null;
+        vm.userExtraInfo =  UserExtraInfo.query({'user':Principal.identity()});
         vm.success = null;
 
         /**
@@ -34,7 +35,13 @@
         });
 
         function save () {
-            Auth.updateAccount(vm.settingsAccount).then(function() {
+            Auth.updateAccount(vm.settingsAccount).then(function(){
+            	 if (vm.userExtraInfo.id !== null) {
+            		 console.log(vm.userExtraInfo);
+            		 UserExtraInfo.update(vm.userExtraInfo);
+            	 } 
+            	 
+            }).then(function() {
                 vm.error = null;
                 vm.success = 'OK';
                 Principal.identity(true).then(function(account) {

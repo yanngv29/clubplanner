@@ -42,8 +42,6 @@ public class UserExtraInfoService {
      */
     public UserExtraInfo create(String nickname, UserType userType, User user) {
         UserExtraInfo newUserExtraInfo = new UserExtraInfo();
-        if(nickname == null || nickname.isEmpty())
-        	nickname = user.getFirstName() + ' ' + user.getLastName();
         newUserExtraInfo.setNickname(nickname);
         newUserExtraInfo.setUserType(userType);
         newUserExtraInfo.setUser(user);

@@ -11,6 +11,12 @@
 
             <form name="form" role="form" novalidate ng-submit="vm.save()" show-validation>
 
+		        <div class="form-group">
+		            <label class="control-label" translate="clubplannerApp.userExtraInfo.nickname" for="field_nickname">Nickname</label>
+		            <input type="text" class="form-control" name="nickname" id="field_nickname"
+		                    ng-model="vm.userExtraInfo.nickname"
+		                     />
+		        </div>
                 <div class="form-group">
                     <label class="control-label" for="firstName" translate="settings.form.firstname">First Name</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
